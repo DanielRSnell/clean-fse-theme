@@ -1,0 +1,17 @@
+{
+    "name": "acf/example-block",
+    "title": "Example Block",
+    "description": "A custom example block using ACF.",
+    "category": "formatting",
+    "icon": "smiley",
+    "keywords": ["example", "acf"],
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "block-controller.php"
+    },
+    "supports": {
+        "align": true,
+        "mode": false,
+        "jsx": true
+    }
+}

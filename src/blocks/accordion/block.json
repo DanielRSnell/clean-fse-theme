@@ -1,0 +1,17 @@
+{
+    "name": "acf/accordion",
+    "title": "Accordion",
+    "description": "A custom accordion block.",
+    "category": "my-fse-theme-blocks",
+    "icon": "list-view",
+    "keywords": ["accordion", "toggle", "collapse"],
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "block-controller.php"
+    },
+    "supports": {
+        "align": true,
+        "mode": false,
+        "jsx": true
+    }
+}
