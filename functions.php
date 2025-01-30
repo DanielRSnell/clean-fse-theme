@@ -1,27 +1,16 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
-}
+require_once __DIR__ . '/vendor/autoload.php';
 
-// Enqueue styles and scripts
-function my_fse_theme_enqueue_assets() {
-    wp_enqueue_style( 'my-fse-theme-style', get_stylesheet_uri(), array(), wp_get_theme()->get( 'Version' ) );
-}
-add_action( 'wp_enqueue_scripts', 'my_fse_theme_enqueue_assets' );
+use Timber\Timber;
+use Carbon_Fields\Carbon_Fields;
 
-// Register custom block category
-function my_fse_theme_block_categories( $categories ) {
-    return array_merge(
-        $categories,
-        array(
-            array(
-                'slug'  => 'hero-blocks',
-                'title' => __( 'Hero Blocks', 'my-fse-theme' ),
-            ),
-        )
-    );
-}
-add_filter( 'block_categories_all', 'my_fse_theme_block_categories', 10, 2 );
+// Initialize Timber
+Timber::init();
 
-// Include block registration file
-require_once get_template_directory() . '/inc/register-blocks.php';
+// Initialize Carbon Fields
+add_action('after_setup_theme', function() {
+    Carbon_Fields::boot();
+});
+
+// Include Carbon Fields block definitions
+require_once __DIR__ . '/inc/blocks.php';

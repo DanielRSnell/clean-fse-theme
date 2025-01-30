@@ -5,7 +5,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 function my_fse_theme_register_blocks() {
     $blocks = array(
-        'home-hero',
+        'accordion',
+        'accordion-item',
     );
 
     foreach ( $blocks as $block ) {

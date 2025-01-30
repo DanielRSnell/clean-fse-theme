@@ -1,17 +1,20 @@
 {
   "name": "my-fse-theme",
   "version": "1.0.0",
-  "description": "A basic clean FSE theme for WordPress",
-  "main": "index.js",
+  "description": "A basic clean FSE theme for WordPress with Tailwind CSS",
   "scripts": {
-    "build": "wp-scripts build",
+    "build": "wp-scripts build && npm run build:css",
     "start": "wp-scripts start",
-    "packages-update": "wp-scripts packages-update"
+    "packages-update": "wp-scripts packages-update",
+    "build:css": "npx @tailwindcss/cli -i ./src/input.css -o ./compile/tailwind.css --minify",
+    "watch:css": "npx @tailwindcss/cli -i ./src/input.css -o ./compile/tailwind.css --watch"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@wordpress/scripts": "^26.0.0"
+    "@tailwindcss/cli": "^4.0.0",
+    "daisyui": "^5.0.0-beta.4",
+    "tailwindcss": "^4.0.0"
   }
 }

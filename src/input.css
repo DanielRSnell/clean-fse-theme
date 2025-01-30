@@ -1,0 +1,4 @@
+@import "tailwindcss" prefix(tw);
+@plugin "daisyui";
+
+/* Add any custom styles here */
