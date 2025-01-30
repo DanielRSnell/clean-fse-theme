@@ -1,0 +1,15 @@
+{
+  "apiVersion": 2,
+  "name": "my-fse-theme/home-hero",
+  "title": "Home Hero",
+  "category": "hero-blocks",
+  "icon": "admin-home",
+  "description": "A hero section for the home page",
+  "supports": {
+    "html": false
+  },
+  "textdomain": "my-fse-theme",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css"
+}
