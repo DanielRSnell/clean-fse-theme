@@ -26,11 +26,19 @@ function my_fse_theme_register_blocks() {
 }
 
 // ACF Block Render Callback
-function my_fse_theme_acf_block_render_callback($block) {
+function my_fse_theme_acf_block_render_callback($block, $content = '', $is_preview = false, $post_id = 0) {
+    $context = Timber::context();
+    $context['block'] = $block;
+    $context['fields'] = get_fields();
+    $context['is_preview'] = $is_preview;
+    $context['post_id'] = $post_id;
+
     $slug = str_replace('acf/', '', $block['name']);
     
     if (file_exists(get_theme_file_path("/src/blocks/{$slug}/block-controller.php"))) {
         include(get_theme_file_path("/src/blocks/{$slug}/block-controller.php"));
+    } else {
+        Timber::render("@block/{$slug}/block.twig", $context);
     }
 }
 

@@ -1,0 +1,51 @@
+<div class="lg:mt-0 lg:ml-auto">
+  <div class="absolute transform lg:-translate-y-1/2 lg:left-1/2 lg:top-1/2 lg:translate-x-8 sm:left-1/2 sm:top-0 sm:translate-x-8">
+    <div class="flex items-center space-x-6 lg:space-x-8">
+      <div class="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
+        {% for image in fields.gallery|slice(0, 2) %}
+          <div class="h-full overflow-hidden w-44 {% if loop.first %}lg:opacity-100 sm:opacity-0{% endif %}">
+            <img
+              alt="Gallery image"
+              class="object-cover"
+              src="{{ image }}"
+              decoding="async"
+              height="926"
+              loading="lazy"
+              width="428"
+            />
+          </div>
+        {% endfor %}
+      </div>
+      <div class="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
+        {% for image in fields.gallery|slice(2, 3) %}
+          <div class="h-full overflow-hidden w-44">
+            <img
+              alt="Gallery image"
+              class="object-cover"
+              src="{{ image }}"
+              decoding="async"
+              height="926"
+              loading="lazy"
+              width="428"
+            />
+          </div>
+        {% endfor %}
+      </div>
+      <div class="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
+        {% for image in fields.gallery|slice(5, 2) %}
+          <div class="h-full overflow-hidden w-44">
+            <img
+              alt="Gallery image"
+              class="object-cover"
+              src="{{ image }}"
+              decoding="async"
+              height="926"
+              loading="lazy"
+              width="428"
+            />
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>

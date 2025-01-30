@@ -15,6 +15,7 @@ Block::make('example_block')
         $context = Timber::context();
         $context['fields'] = $fields;
         $context['attributes'] = $attributes;
+        $context['inner_blocks'] = $inner_blocks;
         
-        Timber::render('block.twig', $context);
+        Timber::render('@block/template/carbon-block/block.twig', $context);
     });

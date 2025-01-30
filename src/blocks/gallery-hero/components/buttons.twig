@@ -1,0 +1,12 @@
+<div class="flex flex-col items-center justify-center gap-3 mt-10 lg:flex-row lg:justify-start">
+  {% if fields.primary_button_text %}
+    <a href="{{ fields.primary_button_link }}" class="items-center justify-center w-full px-6 py-2.5 text-center text-primary-content duration-200 bg-primary border-2 border-primary rounded-full inline-flex hover:bg-transparent hover:border-primary hover:text-primary focus:outline-none lg:w-auto focus-visible:outline-black text-sm focus-visible:ring-black">
+      {{ fields.primary_button_text }}
+    </a>
+  {% endif %}
+  {% if fields.secondary_button_text %}
+    <a href="{{ fields.secondary_button_link }}" class="inline-flex items-center justify-center text-sm font-semibold link link-hover duration-200">
+      {{ fields.secondary_button_text }} &nbsp; →
+    </a>
+  {% endif %}
+</div>

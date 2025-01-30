@@ -3,4 +3,4 @@ $context = Timber::context();
 $context['block'] = $block;
 $context['fields'] = get_fields();
 
-Timber::render('block.twig', $context);
+Timber::render('@block/template/acf-block/block.twig', $context);

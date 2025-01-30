@@ -1,17 +1,15 @@
 {
-    "name": "acf/accordion",
-    "title": "Accordion",
-    "description": "A custom accordion block.",
-    "category": "my-fse-theme-blocks",
-    "icon": "list-view",
-    "keywords": ["accordion", "toggle", "collapse"],
-    "acf": {
-        "mode": "preview",
-        "renderTemplate": "block-controller.php"
-    },
-    "supports": {
-        "align": true,
-        "mode": false,
-        "jsx": true
-    }
+  "name": "acf/accordion",
+  "title": "Accordion",
+  "description": "An accordion block with expandable sections",
+  "category": "design",
+  "icon": "list-view",
+  "keywords": ["accordion", "expandable", "faq"],
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "my_fse_theme_acf_block_render_callback"
+  },
+  "supports": {
+    "align": ["wide", "full"]
+  }
 }

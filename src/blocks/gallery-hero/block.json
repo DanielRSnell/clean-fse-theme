@@ -1,0 +1,15 @@
+{
+  "name": "acf/gallery-hero",
+  "title": "Gallery Hero",
+  "description": "A hero section with text and a gallery of images",
+  "category": "design",
+  "icon": "format-gallery",
+  "keywords": ["gallery", "hero", "images"],
+  "acf": {
+    "mode": "preview",
+    "renderCallback": "my_fse_theme_acf_block_render_callback"
+  },
+  "supports": {
+    "align": ["wide", "full"]
+  }
+}
