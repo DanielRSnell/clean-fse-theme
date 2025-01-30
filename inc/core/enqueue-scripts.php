@@ -4,6 +4,7 @@ class EnqueueScripts {
         add_action('wp_enqueue_scripts', array($this, 'enqueue_styles'));
         add_action('wp_enqueue_scripts', array($this, 'enqueue_scripts'));
         add_action('enqueue_block_editor_assets', array($this, 'enqueue_editor_styles'));
+        add_action('after_setup_theme', array($this, 'add_editor_styles'));
     }
 
     public function enqueue_styles() {
@@ -21,6 +22,13 @@ class EnqueueScripts {
         $stylesheet = $this->get_compiled_stylesheet();
         if ($stylesheet) {
             wp_enqueue_style('compiled-styles-editor', $stylesheet['url'], array(), $stylesheet['version']);
+        }
+    }
+
+    public function add_editor_styles() {
+        $stylesheet = $this->get_compiled_stylesheet();
+        if ($stylesheet) {
+            add_editor_style($stylesheet['url']);
         }
     }
 
