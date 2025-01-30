@@ -1,6 +1,6 @@
 # Blocks
 
-This directory contains custom blocks for the WordPress block editor (Gutenberg). Blocks can be created using either Advanced Custom Fields (ACF), Secure Custom Fields (SCF), or Carbon Fields.
+This directory contains custom blocks for the WordPress block editor (Gutenberg). Blocks can be created using either Advanced Custom Fields (ACF) or Carbon Fields.
 
 ## Block Compiler Option
 
@@ -8,9 +8,9 @@ To set the block compiler option, visit the [Block Manager](../../wp-admin/theme
 
 ## File Structure
 
-### ACF/SCF Blocks
+### ACF Blocks
 
-For ACF or SCF blocks, use the following structure:
+For ACF blocks, use the following structure:
 
 ```
 block-name/
@@ -18,7 +18,8 @@ block-name/
 ├── block-controller.php
 ├── block.twig
 └── components/
-    └── component-name.twig
+    ├── component-name.twig
+    └── ...
 ```
 
 - `block.json`: Defines the block's properties and settings.
@@ -35,7 +36,8 @@ block-name/
 ├── block.php
 ├── block.twig
 └── components/
-    └── component-name.twig
+    ├── component-name.twig
+    └── ...
 ```
 
 - `block.php`: Defines the block, its fields, and render callback using Carbon Fields API.
@@ -44,7 +46,7 @@ block-name/
 
 ## Usage
 
-1. Choose your preferred block compiler (ACF/SCF or Carbon Fields) in the Block Manager.
+1. Choose your preferred block compiler (ACF or Carbon Fields) in the Block Manager.
 2. Create a new directory for your block in this folder.
 3. Add the necessary files based on the chosen compiler's structure.
 4. Implement your block logic and template.
@@ -60,18 +62,18 @@ use Faker\Factory;
 
 $faker = Factory::create();
 
-$defaults = [
-    'heading' => $faker->sentence(4),
-    'description' => $faker->paragraph(2),
-    'button_text' => $faker->words(2, true),
-    'button_link' => $faker->url,
-    // Add more fields as needed
-];
+if ($is_preview) {
+    $defaults = [
+        'title' => $faker->sentence(4),
+        'description' => $faker->paragraph(2),
+        'gallery' => array_fill(0, 5, $faker->imageUrl(800, 600, 'nature', true)),
+    ];
 
-$context['fields'] = array_merge($defaults, array_filter((array)get_fields()));
+    $context['fields'] = array_merge($defaults, array_filter((array)get_fields()));
+}
 ```
 
-### ACF/SCF Block Example
+### ACF Block Example
 
 ```php
 // block-controller.php
@@ -79,15 +81,19 @@ use Faker\Factory;
 
 $context = Timber::context();
 $context['block'] = $block;
+$context['fields'] = get_fields();
 
 $faker = Factory::create();
 
-$defaults = [
-    'title' => $faker->sentence(),
-    'content' => $faker->paragraph(),
-];
+if ($is_preview) {
+    $defaults = [
+        'title' => $faker->sentence(),
+        'description' => $faker->paragraph(),
+        'gallery' => array_fill(0, 5, $faker->imageUrl(800, 600, 'nature', true)),
+    ];
 
-$context['fields'] = array_merge($defaults, array_filter((array)get_fields()));
+    $context['fields'] = array_merge($defaults, array_filter((array)$context['fields']));
+}
 
 Timber::render('@block/block-name/block.twig', $context);
 ```
@@ -102,20 +108,21 @@ use Faker\Factory;
 
 Block::make('example_block')
     ->add_fields(array(
-        Field::make('text', 'heading', 'Heading'),
-        Field::make('rich_text', 'content', 'Content'),
+        Field::make('text', 'title', 'Title'),
+        Field::make('rich_text', 'description', 'Description'),
+        Field::make('media_gallery', 'gallery', 'Gallery'),
     ))
     ->set_render_callback(function ($fields, $attributes, $inner_blocks) {
         $context = Timber::context();
         
         $faker = Factory::create();
         
-        $defaults = [
-            'heading' => $faker->sentence(),
-            'content' => $faker->paragraph(),
-        ];
+        if (empty($fields['gallery'])) {
+            $fields['gallery'] = array_fill(0, 5, $faker->imageUrl(800, 600, 'nature', true));
+        }
         
-        $context['fields'] = array_merge($defaults, array_filter((array)$fields));
+        $context['fields'] = $fields;
+        $context['attributes'] = $attributes;
         
         Timber::render('@block/block-name/block.twig', $context);
     });
@@ -123,13 +130,12 @@ Block::make('example_block')
 
 ## Notes
 
-- ACF (Advanced Custom Fields) and SCF (Secure Custom Fields) use the same file structure and approach. SCF is a security-focused alternative to ACF.
-- Ensure you have the chosen framework (ACF, SCF, or Carbon Fields) properly installed and activated in your WordPress setup.
+- Ensure you have the chosen framework (ACF or Carbon Fields) properly installed and activated in your WordPress setup.
 - The block compiler choice affects how blocks are registered and rendered in the WordPress admin and frontend.
 - Always use the `@block` namespace when rendering Twig templates for blocks.
 - Use Faker to provide default values for a better editing experience.
+- Organize your block's template into smaller, reusable components in the `components/` directory for better maintainability.
 
 For more information on creating custom blocks, refer to the documentation of your chosen framework:
 - [ACF Blocks](https://www.advancedcustomfields.com/resources/blocks/)
-- [SCF Documentation](https://github.com/AdvancedCustomFields/SCF)
 - [Carbon Fields Blocks](https://docs.carbonfields.net/learn/containers/gutenberg-blocks.html)

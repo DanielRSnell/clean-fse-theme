@@ -1,0 +1,5 @@
+<div class="acf-block-gallery">
+    {% for image in fields.gallery %}
+        <img src="{{ image }}" alt="Gallery image {{ loop.index }}" />
+    {% endfor %}
+</div>

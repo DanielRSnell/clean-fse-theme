@@ -1,4 +1,4 @@
-<div id="{{ block.id }}" class="example-block">
-    <h2>{{ fields.title }}</h2>
-    <p>{{ fields.content }}</p>
+<div id="{{ block.id }}" class="acf-block-template">
+    {% include '@block/template/acf-block/components/header.twig' %}
+    {% include '@block/template/acf-block/components/gallery.twig' %}
 </div>
